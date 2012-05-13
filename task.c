@@ -19,7 +19,7 @@ int main()
 
 	/*Считываем команды*/
 	while(exit_flag)
-	{		
+	{
 		char *buf = (char*)malloc(MAXBUFFERSIZE);
 
 		printf("Enter a new command...\n"
@@ -33,12 +33,12 @@ int main()
 			c = getchar();
 
 		}
-		
+
 		buf[count] = '\0';
 		printf("The command u entered was:%s\n", buf);
 		parsing_command(buf);
 		//exit_flag = 0;
-		free(buf);	
+		free(buf);
 	}
 }
 
@@ -46,9 +46,9 @@ void parsing_command(char *command)
 {
 	printf("Parsing=%s\n", command);
 	char com[MAXBUFFERSIZE];
-	
+
 	int count=0;
-	
+
 	/* Вырезаем первое слово до пробела */
 	while(*command != ' ')
 	{
@@ -58,37 +58,39 @@ void parsing_command(char *command)
 	command++;
 	com[count]='\0';
 	//printf("First word=%s\n", com);
-	
+
 	char *start = command; //Сохраним указатель на начале параметров
-	
+
 	/* Посчитаем количество параметров */
 	int w = 0; //Количество пробелов
 	while(*command != '\0')
 	{
 		if(*command == ' ') w++;
 		command++;
-	}w++;	
-	
+	}
+	w++;
+
 	char *param[w]; //Массив для параметров
 	int l = 0;
 	int p = 0;
 	printf("Number of words = %d\n", w);
 
-	for(int i=0; i<w; i++)
+	for(int i = 0; i < w; i++)
 	{
 		param[i] = start;
 		do
 		{
 			start++;
 			if(*start == '\0') goto end;
-		}while (*start != ' ');	
-		
+		}
+		while (*start != ' ');
+
 		*start = '\0';
 		start++;
 	}
 end:
-	/* Вызываем нужную функцию */	
-	if(strcmp(com, "add")==0)
+	/* Вызываем нужную функцию */
+	if(strcmp(com, "add") == 0)
 	{
 		add(param, w);
 	}
@@ -96,7 +98,7 @@ end:
 	{
 		printf("Error: No command found.\n");
 	}
-	
+
 
 }
 
